@@ -9,13 +9,26 @@ export async function parseWordFile(file: File): Promise<string> {
   return result.value;
 }
 
-// 解析PDF文件
+// 解析PDF文件（使用 pdfjs-dist，浏览器兼容）
 export async function parsePDFFile(file: File): Promise<string> {
-  // @ts-ignore - pdf-parse类型定义有问题
-  const pdfParse = (await import("pdf-parse")).default || (await import("pdf-parse"));
+  const pdfjsLib = await import("pdfjs-dist");
+  // 设置 worker（使用 CDN，避免打包问题）
+  pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@5.7.284/build/pdf.worker.min.mjs";
+
   const arrayBuffer = await file.arrayBuffer();
-  const data = await pdfParse(Buffer.from(arrayBuffer));
-  return data.text;
+  const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+
+  let fullText = "";
+  for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+    const page = await pdf.getPage(pageNum);
+    const textContent = await page.getTextContent();
+    const pageText = textContent.items
+      .map((item: any) => item.str)
+      .join(" ");
+    fullText += pageText + "\n\n";
+  }
+
+  return fullText.trim();
 }
 
 // 使用AI解析文本为简历结构
