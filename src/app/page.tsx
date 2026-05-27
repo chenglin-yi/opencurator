@@ -101,7 +101,7 @@ export default function Home() {
             href="https://branchnorth.cc.cd/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[11px] text-muted-foreground/60 hover:text-primary transition-colors"
+            className="text-sm text-muted-foreground/70 hover:text-primary transition-colors"
           >
             BranchNorth
           </a>
@@ -110,7 +110,7 @@ export default function Home() {
             href="https://xinglin.bbroot.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[11px] text-muted-foreground/60 hover:text-primary transition-colors"
+            className="text-sm text-muted-foreground/70 hover:text-primary transition-colors"
           >
             星林纪
           </a>

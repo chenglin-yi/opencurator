@@ -23,18 +23,14 @@ export function Header() {
 
   React.useEffect(() => {
     setMounted(true);
-    
+
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
     };
-    
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  if (!mounted) {
-    return null;
-  }
 
   return (
     <header 
@@ -105,11 +101,11 @@ export function Header() {
             className="h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all"
             title="切换主题"
           >
-            {theme === "light" ? (
+            {mounted && (theme === "light" ? (
               <Moon className="h-4 w-4" />
             ) : (
               <Sun className="h-4 w-4" />
-            )}
+            ))}
           </Button>
 
           <div className="mx-1 h-5 w-px bg-border" />
