@@ -12,6 +12,7 @@ import {
   Download,
   FileText,
   Sparkles,
+  Github,
 } from "lucide-react";
 
 export function Header() {
@@ -110,6 +111,18 @@ export function Header() {
               <Sun className="h-4 w-4" />
             )}
           </Button>
+
+          <div className="mx-1 h-5 w-px bg-border" />
+
+          <a
+            href="https://github.com/chenglin-yi/opencurator"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center rounded-md text-sm font-medium h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all"
+            title="GitHub"
+          >
+            <Github className="h-4 w-4" />
+          </a>
         </div>
       </div>
       

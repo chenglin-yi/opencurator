@@ -96,6 +96,25 @@ export default function Home() {
           </p>
           <div className="h-px flex-1 bg-gradient-to-l from-transparent to-border" />
         </div>
+        <div className="flex items-center justify-center gap-4 mt-4">
+          <a
+            href="https://branchnorth.cc.cd/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[11px] text-muted-foreground/60 hover:text-primary transition-colors"
+          >
+            BranchNorth
+          </a>
+          <span className="text-muted-foreground/30">·</span>
+          <a
+            href="https://xinglin.bbroot.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[11px] text-muted-foreground/60 hover:text-primary transition-colors"
+          >
+            星林纪
+          </a>
+        </div>
       </footer>
 
       {/* 对话框 */}
