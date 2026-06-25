@@ -11,6 +11,8 @@ import { useAI } from "@/hooks/use-ai";
 import { Experience } from "@/types/resume";
 import { Briefcase, Plus, Trash2, Sparkles, Loader2, CheckCircle } from "lucide-react";
 
+const PRESENT_VALUE = "至今";
+
 export function ExperienceForm() {
   const { experience, addExperience, updateExperience, removeExperience } =
     useResumeStore();
@@ -167,13 +169,25 @@ export function ExperienceForm() {
                   <Label htmlFor={`endDate-${exp.id}`} className="text-xs text-muted-foreground">
                     结束时间 <span className="text-primary">*</span>
                   </Label>
-                  <Input
-                    id={`endDate-${exp.id}`}
-                    type="month"
-                    value={exp.endDate}
-                    onChange={(e) => handleChange(exp.id, "endDate", e.target.value)}
-                    className="h-9 bg-background border-transparent focus:border-primary/30 text-sm"
-                  />
+                  <div className="flex gap-2">
+                    <Input
+                      id={`endDate-${exp.id}`}
+                      type={exp.endDate === PRESENT_VALUE ? "text" : "month"}
+                      value={exp.endDate}
+                      disabled={exp.endDate === PRESENT_VALUE}
+                      onChange={(e) => handleChange(exp.id, "endDate", e.target.value)}
+                      className={`h-9 bg-background border-transparent focus:border-primary/30 text-sm ${exp.endDate === PRESENT_VALUE ? "opacity-50" : ""}`}
+                    />
+                    <Button
+                      type="button"
+                      variant={exp.endDate === PRESENT_VALUE ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => handleChange(exp.id, "endDate", exp.endDate === PRESENT_VALUE ? "" : PRESENT_VALUE)}
+                      className="h-9 whitespace-nowrap text-xs border-primary/20 hover:border-primary/40"
+                    >
+                      至今
+                    </Button>
+                  </div>
                 </div>
                 <div className="space-y-1.5 sm:col-span-2">
                   <div className="flex items-center justify-between">

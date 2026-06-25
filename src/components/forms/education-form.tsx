@@ -148,13 +148,25 @@ export function EducationForm() {
                   <Label htmlFor={`endDate-${edu.id}`} className="text-xs text-muted-foreground">
                     毕业时间 <span className="text-primary">*</span>
                   </Label>
-                  <Input
-                    id={`endDate-${edu.id}`}
-                    type="month"
-                    value={edu.endDate}
-                    onChange={(e) => handleChange(edu.id, "endDate", e.target.value)}
-                    className="h-9 bg-background border-transparent focus:border-primary/30 text-sm"
-                  />
+                  <div className="flex gap-2">
+                    <Input
+                      id={`endDate-${edu.id}`}
+                      type={edu.endDate === "至今" ? "text" : "month"}
+                      value={edu.endDate}
+                      disabled={edu.endDate === "至今"}
+                      onChange={(e) => handleChange(edu.id, "endDate", e.target.value)}
+                      className={`h-9 bg-background border-transparent focus:border-primary/30 text-sm ${edu.endDate === "至今" ? "opacity-50" : ""}`}
+                    />
+                    <Button
+                      type="button"
+                      variant={edu.endDate === "至今" ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => handleChange(edu.id, "endDate", edu.endDate === "至今" ? "" : "至今")}
+                      className="h-9 whitespace-nowrap text-xs border-primary/20 hover:border-primary/40"
+                    >
+                      在读
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>

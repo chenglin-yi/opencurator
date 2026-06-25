@@ -190,13 +190,25 @@ export function ProjectsForm() {
                   <Label htmlFor={`endDate-${proj.id}`} className="text-xs text-muted-foreground">
                     结束时间 <span className="text-primary">*</span>
                   </Label>
-                  <Input
-                    id={`endDate-${proj.id}`}
-                    type="month"
-                    value={proj.endDate}
-                    onChange={(e) => handleChange(proj.id, "endDate", e.target.value)}
-                    className="h-9 bg-background border-transparent focus:border-primary/30 text-sm"
-                  />
+                  <div className="flex gap-2">
+                    <Input
+                      id={`endDate-${proj.id}`}
+                      type={proj.endDate === "至今" ? "text" : "month"}
+                      value={proj.endDate}
+                      disabled={proj.endDate === "至今"}
+                      onChange={(e) => handleChange(proj.id, "endDate", e.target.value)}
+                      className={`h-9 bg-background border-transparent focus:border-primary/30 text-sm ${proj.endDate === "至今" ? "opacity-50" : ""}`}
+                    />
+                    <Button
+                      type="button"
+                      variant={proj.endDate === "至今" ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => handleChange(proj.id, "endDate", proj.endDate === "至今" ? "" : "至今")}
+                      className="h-9 whitespace-nowrap text-xs border-primary/20 hover:border-primary/40"
+                    >
+                      至今
+                    </Button>
+                  </div>
                 </div>
                 <div className="space-y-1.5 sm:col-span-2">
                   <Label className="text-xs text-muted-foreground">技术栈</Label>

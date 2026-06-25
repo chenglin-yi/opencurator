@@ -22,8 +22,13 @@ const JDAnalyzer = dynamic(
   { ssr: false }
 );
 
+const ResumeDoctor = dynamic(
+  () => import("@/components/ai/resume-doctor").then(mod => ({ default: mod.ResumeDoctor })),
+  { ssr: false }
+);
+
 export default function Home() {
-  const { isConfigOpen, isJDAnalyzerOpen, isExportOpen, isImportOpen } =
+  const { isConfigOpen, isJDAnalyzerOpen, isExportOpen, isImportOpen, isDoctorOpen } =
     useUIStore();
 
   return (
@@ -120,6 +125,7 @@ export default function Home() {
       {/* 对话框 */}
       {isConfigOpen && <ConfigPanel />}
       {isJDAnalyzerOpen && <JDAnalyzer />}
+      {isDoctorOpen && <ResumeDoctor />}
       {isExportOpen && <ExportDialog />}
       {isImportOpen && <ImportDialog />}
     </div>

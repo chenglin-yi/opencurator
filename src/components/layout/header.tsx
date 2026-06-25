@@ -13,11 +13,12 @@ import {
   FileText,
   Sparkles,
   Github,
+  Stethoscope,
 } from "lucide-react";
 
 export function Header() {
   const { theme, setTheme } = useTheme();
-  const { setConfigOpen, setImportOpen, setExportOpen } = useUIStore();
+  const { setConfigOpen, setImportOpen, setExportOpen, setDoctorOpen } = useUIStore();
   const [mounted, setMounted] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
 
@@ -81,7 +82,19 @@ export function Header() {
             <Download className="h-4 w-4" />
             <span className="hidden sm:inline text-xs">导出</span>
           </Button>
-          
+
+          <div className="mx-1 h-5 w-px bg-border" />
+
+          <Button
+            variant="default"
+            size="sm"
+            onClick={() => setDoctorOpen(true)}
+            className="gap-1.5 shadow-sm"
+          >
+            <Stethoscope className="h-4 w-4" />
+            <span className="hidden sm:inline text-xs">AI诊断</span>
+          </Button>
+
           <div className="mx-1 h-5 w-px bg-border" />
           
           <Button

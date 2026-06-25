@@ -1,5 +1,13 @@
 import { create } from "zustand";
-import { ResumeScore, JDAnalysis } from "@/types/resume";
+import { ResumeScore, JDAnalysis, ResumeDiagnosis, DoctorPhase } from "@/types/resume";
+
+interface ReviewResult {
+  passed: boolean;
+  score: number;
+  fixedIssues: string[];
+  remainingIssues: Array<{ title: string; description: string; suggestion: string }>;
+  qualityNotes: string;
+}
 
 interface AnalysisState {
   // 评分结果
@@ -10,6 +18,16 @@ interface AnalysisState {
   jdAnalysis: JDAnalysis | null;
   jdText: string;
   hasAnalyzedJD: boolean;
+
+  // 诊断结果
+  diagnosis: ResumeDiagnosis | null;
+  hasDiagnosed: boolean;
+
+  // 诊断优化工作流状态
+  doctorPhase: DoctorPhase;
+  userFeedback: string;
+  reviewResult: ReviewResult | null;
+  optimizationRound: number;
   
   // 操作
   setScore: (score: ResumeScore) => void;
@@ -17,6 +35,15 @@ interface AnalysisState {
   
   setJDAnalysis: (analysis: JDAnalysis, jdText: string) => void;
   clearJDAnalysis: () => void;
+
+  setDiagnosis: (diagnosis: ResumeDiagnosis) => void;
+  clearDiagnosis: () => void;
+
+  setDoctorPhase: (phase: DoctorPhase) => void;
+  setUserFeedback: (feedback: string) => void;
+  setReviewResult: (result: ReviewResult | null) => void;
+  incrementOptimizationRound: () => void;
+  resetDoctorWorkflow: () => void;
   
   // 获取优化建议上下文
   getOptimizationContext: () => string;
@@ -29,6 +56,12 @@ export const useAnalysisStore = create<AnalysisState>()((set, get) => ({
   jdAnalysis: null,
   jdText: "",
   hasAnalyzedJD: false,
+  diagnosis: null,
+  hasDiagnosed: false,
+  doctorPhase: "diagnosis",
+  userFeedback: "",
+  reviewResult: null,
+  optimizationRound: 0,
   
   // 评分操作
   setScore: (score) => set({ score, hasScored: true }),
@@ -44,6 +77,24 @@ export const useAnalysisStore = create<AnalysisState>()((set, get) => ({
     jdAnalysis: null, 
     jdText: "", 
     hasAnalyzedJD: false 
+  }),
+
+  // 诊断操作
+  setDiagnosis: (diagnosis) => set({ diagnosis, hasDiagnosed: true, doctorPhase: "user-feedback" }),
+  clearDiagnosis: () => set({ diagnosis: null, hasDiagnosed: false }),
+
+  // 工作流操作
+  setDoctorPhase: (phase) => set({ doctorPhase: phase }),
+  setUserFeedback: (feedback) => set({ userFeedback: feedback }),
+  setReviewResult: (result) => set({ reviewResult: result }),
+  incrementOptimizationRound: () => set((state) => ({ optimizationRound: state.optimizationRound + 1 })),
+  resetDoctorWorkflow: () => set({
+    diagnosis: null,
+    hasDiagnosed: false,
+    doctorPhase: "diagnosis",
+    userFeedback: "",
+    reviewResult: null,
+    optimizationRound: 0,
   }),
   
   // 获取优化建议上下文

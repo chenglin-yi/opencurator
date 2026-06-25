@@ -6,8 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { useResumeStore } from "@/stores/resume-store";
-import { RecruitmentType } from "@/types/resume";
-import { User, Briefcase, GraduationCap, Sparkles } from "lucide-react";
+import { RecruitmentType, JobCategory } from "@/types/resume";
+import { User, Briefcase, GraduationCap, Sparkles, Code, Users } from "lucide-react";
 
 export function BasicInfoForm() {
   const { basicInfo, setBasicInfo } = useResumeStore();
@@ -18,6 +18,10 @@ export function BasicInfoForm() {
 
   const handleRecruitmentTypeChange = (type: RecruitmentType) => {
     setBasicInfo({ ...basicInfo, recruitmentType: type });
+  };
+
+  const handleJobCategoryChange = (category: JobCategory) => {
+    setBasicInfo({ ...basicInfo, jobCategory: category });
   };
 
   return (
@@ -104,6 +108,86 @@ export function BasicInfoForm() {
                   <p className="font-medium text-sm">校园招聘</p>
                   <p className="text-[11px] text-muted-foreground">
                     应届生/实习生
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 岗位类型选择 */}
+        <div className="space-y-2">
+          <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+            岗位类型
+          </Label>
+          <div className="grid grid-cols-2 gap-3">
+            <div
+              className={`group relative cursor-pointer rounded-xl border-2 p-4 transition-all hover-lift ${
+                basicInfo.jobCategory === "tech"
+                  ? "border-primary bg-primary/5 shadow-md shadow-primary/10"
+                  : "border-transparent bg-muted/30 hover:border-primary/30"
+              }`}
+              onClick={() => handleJobCategoryChange("tech")}
+            >
+              {basicInfo.jobCategory === "tech" && (
+                <div className="absolute right-2 top-2">
+                  <div className="rounded-full bg-primary p-0.5">
+                    <Sparkles className="h-3 w-3 text-primary-foreground" />
+                  </div>
+                </div>
+              )}
+              <div className="flex items-center gap-3">
+                <div className={`flex h-10 w-10 items-center justify-center rounded-lg ${
+                  basicInfo.jobCategory === "tech" 
+                    ? "bg-primary/10" 
+                    : "bg-muted"
+                }`}>
+                  <Code className={`h-5 w-5 ${
+                    basicInfo.jobCategory === "tech" 
+                      ? "text-primary" 
+                      : "text-muted-foreground"
+                  }`} />
+                </div>
+                <div>
+                  <p className="font-medium text-sm">技术岗位</p>
+                  <p className="text-[11px] text-muted-foreground">
+                    开发、算法、运维、数据等
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <div
+              className={`group relative cursor-pointer rounded-xl border-2 p-4 transition-all hover-lift ${
+                basicInfo.jobCategory === "non-tech"
+                  ? "border-primary bg-primary/5 shadow-md shadow-primary/10"
+                  : "border-transparent bg-muted/30 hover:border-primary/30"
+              }`}
+              onClick={() => handleJobCategoryChange("non-tech")}
+            >
+              {basicInfo.jobCategory === "non-tech" && (
+                <div className="absolute right-2 top-2">
+                  <div className="rounded-full bg-primary p-0.5">
+                    <Sparkles className="h-3 w-3 text-primary-foreground" />
+                  </div>
+                </div>
+              )}
+              <div className="flex items-center gap-3">
+                <div className={`flex h-10 w-10 items-center justify-center rounded-lg ${
+                  basicInfo.jobCategory === "non-tech" 
+                    ? "bg-primary/10" 
+                    : "bg-muted"
+                }`}>
+                  <Users className={`h-5 w-5 ${
+                    basicInfo.jobCategory === "non-tech" 
+                      ? "text-primary" 
+                      : "text-muted-foreground"
+                  }`} />
+                </div>
+                <div>
+                  <p className="font-medium text-sm">非技术岗位</p>
+                  <p className="text-[11px] text-muted-foreground">
+                    产品、运营、市场、管理等
                   </p>
                 </div>
               </div>

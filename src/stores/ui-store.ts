@@ -6,6 +6,7 @@ interface UIState {
   isImportOpen: boolean;
   isExportOpen: boolean;
   isJDAnalyzerOpen: boolean;
+  isDoctorOpen: boolean;
   activeTab: string;
   
   toggleSidebar: () => void;
@@ -14,6 +15,7 @@ interface UIState {
   setImportOpen: (open: boolean) => void;
   setExportOpen: (open: boolean) => void;
   setJDAnalyzerOpen: (open: boolean) => void;
+  setDoctorOpen: (open: boolean) => void;
   setActiveTab: (tab: string) => void;
 }
 
@@ -23,6 +25,7 @@ export const useUIStore = create<UIState>()((set) => ({
   isImportOpen: false,
   isExportOpen: false,
   isJDAnalyzerOpen: false,
+  isDoctorOpen: false,
   activeTab: "basic",
 
   toggleSidebar: () => set((state) => ({ isSidebarOpen: !state.isSidebarOpen })),
@@ -31,5 +34,6 @@ export const useUIStore = create<UIState>()((set) => ({
   setImportOpen: (open) => set({ isImportOpen: open }),
   setExportOpen: (open) => set({ isExportOpen: open }),
   setJDAnalyzerOpen: (open) => set({ isJDAnalyzerOpen: open }),
+  setDoctorOpen: (open) => set({ isDoctorOpen: open }),
   setActiveTab: (tab) => set({ activeTab: tab }),
 }));

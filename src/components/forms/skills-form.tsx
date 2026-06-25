@@ -35,7 +35,9 @@ export function SkillsForm() {
     if (!newSkillName.trim()) return;
 
     addSkill();
-    const lastSkill = skills[skills.length - 1];
+    // 从 store 获取最新状态（React 状态还未更新）
+    const latestSkills = useResumeStore.getState().skills;
+    const lastSkill = latestSkills[latestSkills.length - 1];
     if (lastSkill) {
       updateSkill(lastSkill.id, {
         name: newSkillName.trim(),

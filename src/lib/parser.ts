@@ -107,6 +107,7 @@ export function createEmptyResume(): Resume {
       email: "",
       targetPosition: "",
       recruitmentType: "social",
+      jobCategory: "tech",
       website: "",
       city: "",
       yearsOfExperience: "",
